@@ -48,10 +48,14 @@ def main(args):
     ordered_no_tok = np.array(no_tok)[ordered_indz]
     total_size = og.format_size(total_size)
 
-    underprint(f"Downloading resources for language '{args.language}'")
+    underprint(f"Resources yet to be downloaded for language '{args.language}':")
     og.print_files(ordered_no_tok, file_n, total_size)
+
     if not args.list:
+        print()
+        underprint(f"Downloading:")
         og.download(ordered_no_tok, file_n, total_size)
+        print()
 
     # gunzipping: https://stackoverflow.com/a/41270260
     if not args.no_gunzip:
@@ -87,7 +91,7 @@ def underprint(msg):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
-        description="""Downloading all books from Opus: http://opus.nlpl.eu/.
+        description="""Downloading all datasets from Opus: http://opus.nlpl.eu/.
         This is meant for language modelling rather than translation: the aim
         is to get large amounts of plain text, rather than language pairs."""
     )
@@ -120,7 +124,7 @@ if __name__ == "__main__":
         "-g",
         "--no_gunzip",
         action="store_true",
-        help="""Gunzips the files after downloading. Defaults to false.""",
+        help="""Do not gunzip the files after downloading. Defaults to false.""",
     )
 
     parser.add_argument(
